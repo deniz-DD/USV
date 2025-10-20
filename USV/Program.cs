@@ -16,6 +16,8 @@ namespace USV
             string S_power;
             double power;
             double all_power = 0;
+            double Wirkleistung = 0;    
+            double Gesamtleistung = 0;  
            
             Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
             try
@@ -30,10 +32,10 @@ namespace USV
 
             do
             {
-                Console.Write("Bitte geben Sie die Spannung (V = Volt) an: " );
+                Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: " );
                 //power = Convert.ToDouble(Console.ReadLine());   
                 S_power = Console.ReadLine();
-                if(S_power == ""){
+                if(S_power == ""){ //Standard Wert von 12VA
                     power = 12;
                     powerList[number_loop] = power;
                     all_power += powerList[number_loop];
@@ -51,13 +53,20 @@ namespace USV
                     number_loop++;
                 }
 
-                
-
-                
 
             } while (number_loop < number_devices);
-            Console.WriteLine(all_power);    
-          
+            Console.WriteLine(all_power + "VA");
+            Wirkleistung = all_power * 0.65;
+            Gesamtleistung = Wirkleistung * 1.30;
+            Console.WriteLine("______________");
+            Console.WriteLine("Wirkleistung: " + Wirkleistung);
+            Console.WriteLine("______________");
+            Console.WriteLine("Gesamtlast: " + Gesamtleistung);
+
+
+
+
+
             Console.ReadKey();
         }
     }
