@@ -129,6 +129,13 @@ namespace USV
             Console.WriteLine("______________");
             Console.WriteLine("Volt: " + all_volt);
 
+            // Bestimmug der Zeit
+
+            double time =( number_devices * all_volt * all_cap )/ Gesamtleistung;
+            Console.WriteLine("______________");
+            Console.WriteLine("Zeit: " + time);
+
+
 
 
 
