@@ -58,7 +58,7 @@ namespace USV
                         if (S_power == "")
                         { //Standard Wert von 12VA
                             power = 12;
-                            powerList[number_loop] = power;
+                            powerList[number_loop-1] = power;
                             all_power += powerList[number_loop];
 
                         }
@@ -68,7 +68,7 @@ namespace USV
                             all_power += powerList[number_loop - 1];
                         }
                     } while (!double.TryParse(S_power, out power));
-                    Console.WriteLine("schleifen abbruch");
+                    Console.WriteLine("Weiter");
                 }
                 else
                 {
@@ -80,11 +80,30 @@ namespace USV
                 S_cap = Console.ReadLine();
                 if (S_cap == "")
                 { //Standard Wert von 1Ah
+
                     number_loop++;
                 }
                 else if (!double.TryParse(S_cap, out cap))
                 {
-                    Console.WriteLine("Das ist keine Zahl");
+                    do {
+                        Console.Write("Bitte geben Sie die Kapazitaet (Ah) an: ");
+                        S_cap = Console.ReadLine();
+                        if(S_cap == "")
+                        {
+                            cap = 1;
+                            capList[number_loop - 1] = cap;
+                            number_loop++;
+
+                        }
+                        else
+                        {
+                            capList[number_loop - 1] = cap;
+                            all_cap += capList[number_loop - 1];
+                            number_loop++;
+                        }
+
+                    } while (!double.TryParse(S_cap, out cap));
+                    Console.WriteLine("Weiter");
                 }
                 else
                 {
@@ -96,17 +115,28 @@ namespace USV
 
             } while (number_loop <= number_devices);
 
+            //Aus der Scheinleistung muss erst die Wirkleistung 
+            Wirkleistung = all_power * 0.65;            
+            Gesamtleistung = Wirkleistung * 1.30;
+            Gesamtleistung = Gesamtleistung * 1.55;
+            Console.WriteLine("______________");
+            Console.WriteLine("Wirkleistung: " + Wirkleistung);
+            Console.WriteLine("______________");
+            Console.WriteLine("Gesamtlast: " + Gesamtleistung +" VA");
+
+            //Bestimmung von Volt der Akkus 
+            double all_volt = Wirkleistung / all_cap;
+            Console.WriteLine("______________");
+            Console.WriteLine("Volt: " + all_volt);
 
 
-         
-            
+
 
             //Wirkleistung = all_power * 0.65;
-            //Gesamtleistung = Wirkleistung * 1.30;
+
             //Console.WriteLine("______________");
             //Console.WriteLine("Wirkleistung: " + Wirkleistung);
-            //Console.WriteLine("______________");
-            //Console.WriteLine("Gesamtlast: " + Gesamtleistung);
+
 
 
 
