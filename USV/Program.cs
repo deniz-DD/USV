@@ -18,7 +18,7 @@ namespace USV
             string S_cap;
             double power;
             double cap;
-            double all_power = 0;
+            double all_power = 0; //Scheinleistung 
             double all_cap = 0;
             double Wirkleistung = 0;
             double Gesamtleistung = 0;
@@ -41,8 +41,9 @@ namespace USV
                 Console.WriteLine("-----" + "Akku " + number_loop + "-----");
                 Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
                 S_power = Console.ReadLine();
+               
                 if (S_power == "")
-                { //Standard Wert von 12V
+                { //Standard Wert von 12VA
                     power = 12;
                     powerList[number_loop] = power;
                     all_power += powerList[number_loop];
@@ -50,8 +51,24 @@ namespace USV
                 }
                 else if (!double.TryParse(S_power, out power))
                 {
-                    Console.WriteLine("Das ist keine Zahl");
+                    do
+                    {
+                         Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
+                         S_power = Console.ReadLine();
+                        if (S_power == "")
+                        { //Standard Wert von 12VA
+                            power = 12;
+                            powerList[number_loop] = power;
+                            all_power += powerList[number_loop];
 
+                        }
+                        else
+                        {
+                            powerList[number_loop - 1] = power;
+                            all_power += powerList[number_loop - 1];
+                        }
+                    } while (!double.TryParse(S_power, out power));
+                    Console.WriteLine("schleifen abbruch");
                 }
                 else
                 {
@@ -62,13 +79,12 @@ namespace USV
                 Console.Write("Bitte geben Sie die Kapazitaet (Ah) an: ");
                 S_cap = Console.ReadLine();
                 if (S_cap == "")
-                { //Standard Wert von 1A
+                { //Standard Wert von 1Ah
                     number_loop++;
                 }
                 else if (!double.TryParse(S_cap, out cap))
                 {
                     Console.WriteLine("Das ist keine Zahl");
-
                 }
                 else
                 {
@@ -80,16 +96,17 @@ namespace USV
 
             } while (number_loop <= number_devices);
 
-            for(int i = 0; i < number_loop-1; i++)
-            {
-                Console.Write(powerList[i] + " ");
 
-            }
-            for (int i = 0; i < number_loop-1; i++)
-            {
-                Console.Write(capList[i] + " ");
 
-            }
+         
+            
+
+            //Wirkleistung = all_power * 0.65;
+            //Gesamtleistung = Wirkleistung * 1.30;
+            //Console.WriteLine("______________");
+            //Console.WriteLine("Wirkleistung: " + Wirkleistung);
+            //Console.WriteLine("______________");
+            //Console.WriteLine("Gesamtlast: " + Gesamtleistung);
 
 
 
