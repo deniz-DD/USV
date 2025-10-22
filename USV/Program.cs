@@ -11,7 +11,13 @@ namespace USV
         static void Main(string[] args)
 
         {
+            USV_Task1();
+            
 
+            Console.ReadKey();
+        }
+        static void USV_Task1()
+        {
             int number_devices = 1;
             int number_loop = 1;
             string S_number_devices;
@@ -37,7 +43,7 @@ namespace USV
 
                 } while (!int.TryParse(S_number_devices, out number_devices));
             }
-            
+
             double[] powerList = new double[number_devices];
             double[] capList = new double[number_devices];
             do
@@ -46,24 +52,24 @@ namespace USV
                 Console.WriteLine("-----" + "Akku " + number_loop + "-----");
                 Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
                 S_power = Console.ReadLine();
-               
+
                 if (S_power == "")
                 { //Standard Wert von 12VA
                     power = 12;
                     powerList[number_loop] = power;
                     all_power += powerList[number_loop];
-                   
+
                 }
                 else if (!double.TryParse(S_power, out power))
                 {
                     do
                     {
-                         Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
-                         S_power = Console.ReadLine();
+                        Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
+                        S_power = Console.ReadLine();
                         if (S_power == "")
                         { //Standard Wert von 12VA
                             power = 12;
-                            powerList[number_loop-1] = power;
+                            powerList[number_loop - 1] = power;
                             all_power += powerList[number_loop];
 
                         }
@@ -77,8 +83,8 @@ namespace USV
                 }
                 else
                 {
-                    powerList[number_loop-1] = power;
-                    all_power += powerList[number_loop-1];
+                    powerList[number_loop - 1] = power;
+                    all_power += powerList[number_loop - 1];
                 }
                 //Kapazitaet abfragen
                 Console.Write("Bitte geben Sie die Kapazitaet (Ah) an: ");
@@ -90,10 +96,11 @@ namespace USV
                 }
                 else if (!double.TryParse(S_cap, out cap))
                 {
-                    do {
+                    do
+                    {
                         Console.Write("Bitte geben Sie die Kapazitaet (Ah) an: ");
                         S_cap = Console.ReadLine();
-                        if(S_cap == "")
+                        if (S_cap == "")
                         {
                             cap = 1;
                             capList[number_loop - 1] = cap;
@@ -121,13 +128,13 @@ namespace USV
             } while (number_loop <= number_devices);
 
             //Aus der Scheinleistung muss erst die Wirkleistung 
-            Wirkleistung = all_power * 0.65;            
+            Wirkleistung = all_power * 0.65;
             Gesamtleistung = Wirkleistung * 1.30;
             Gesamtleistung = Gesamtleistung * 1.55;
             Console.WriteLine("______________");
             Console.WriteLine("Wirkleistung: " + Wirkleistung);
             Console.WriteLine("______________");
-            Console.WriteLine("Gesamtlast: " + Gesamtleistung +" VA");
+            Console.WriteLine("Gesamtlast: " + Gesamtleistung + " VA");
 
             //Bestimmung von Volt der Akkus 
             double all_volt = Wirkleistung / all_cap;
@@ -136,11 +143,10 @@ namespace USV
 
             // Bestimmug der Zeit
 
-            double time =( number_devices * all_volt * all_cap )/ Gesamtleistung;
+            double time = (number_devices * all_volt * all_cap) / Gesamtleistung;
             Console.WriteLine("______________");
             Console.WriteLine("Zeit: " + time);
 
-            Console.ReadKey();
         }
 
         
