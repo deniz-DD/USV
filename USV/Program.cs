@@ -13,14 +13,16 @@ namespace USV
         {
             int number_devices = 1;
             int number_loop = 1;
-            string S_type = "VA";
+            string S_type = "W";
             string S_number_devices;
             string S_power;
             string S_cap;
             double power;
             double cap;
-            double all_power = 0; //Scheinleistung 
             double all_cap = 0;
+
+            double Wirkleistung;
+            double Scheinleistung;
             //Abfrage der Akkus 
             Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
             S_number_devices = Console.ReadLine();
@@ -41,16 +43,41 @@ namespace USV
             {
 
                 Console.WriteLine("-----" + "Akku " + number_loop + "-----");
-                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W, VA(Standard), A, )");
+                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, )");
                 S_type = Console.ReadLine();
+                Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: " , S_type );
+                S_power = Console.ReadLine();
+
                 do
                 {
-                    if(S_type == "VA")
+                    if (!double.TryParse(S_power, out power))
+                    {
+                        do
+                        {
+                            Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
+                            S_power = Console.ReadLine();
+                            if (S_power == "")
+                            { //Standard Wert von 12VA
+                                power = 12;
+                                powerList[number_loop - 1] = power;
+                                
+
+                            }
+                            else
+                            {
+                                powerList[number_loop - 1] = power;
+                                
+                            }
+                        } while (!double.TryParse(S_power, out power));
+                        Console.WriteLine("Weiter");
+                        
+
+                    if (S_type == "VA")
                     {
                         Console.WriteLine("VA");
                     }else if (S_type == "W")
                     {
-                        Console.WriteLine("W");
+                       
 
                     }else if (S_type == "A")
                     {
@@ -59,6 +86,8 @@ namespace USV
          
                 } while (double.TryParse(S_type, out double type));
 
+
+                number_loop++;
             } while (number_loop <= number_devices);
 
 
