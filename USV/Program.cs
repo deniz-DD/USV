@@ -11,8 +11,62 @@ namespace USV
         static void Main(string[] args)
 
         {
-            USV_Task1();
-            
+            int number_devices = 1;
+            int number_loop = 1;
+            string S_type = "VA";
+            string S_number_devices;
+            string S_power;
+            string S_cap;
+            double power;
+            double cap;
+            double all_power = 0; //Scheinleistung 
+            double all_cap = 0;
+            //Abfrage der Akkus 
+            Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
+            S_number_devices = Console.ReadLine();
+
+            if (!int.TryParse(S_number_devices, out number_devices))
+            {
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
+                    S_number_devices = Console.ReadLine();
+
+                } while (!int.TryParse(S_number_devices, out number_devices));
+            }
+            double[] powerList = new double[number_devices];
+
+            do
+            {
+
+                Console.WriteLine("-----" + "Akku " + number_loop + "-----");
+                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W, VA(Standard), A, )");
+                S_type = Console.ReadLine();
+                do
+                {
+                    if(S_type == "VA")
+                    {
+                        Console.WriteLine("VA");
+                    }else if (S_type == "W")
+                    {
+                        Console.WriteLine("W");
+
+                    }else if (S_type == "A")
+                    {
+                        Console.WriteLine("A");
+                    }
+         
+                } while (double.TryParse(S_type, out double type));
+
+            } while (number_loop <= number_devices);
+
+
+
+
+            //Leistungsabfrage
+
+
 
             Console.ReadKey();
         }
