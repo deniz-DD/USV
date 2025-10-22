@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace USV
 {
     internal class Program
     {
         static void Main(string[] args)
-
         {
             int number_devices = 1;
             int number_loop = 1;
@@ -20,10 +15,9 @@ namespace USV
             double power;
             double cap;
             double all_cap = 0;
-
             double Wirkleistung;
             double Scheinleistung;
-            //Abfrage der Akkus 
+
             Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
             S_number_devices = Console.ReadLine();
 
@@ -34,71 +28,61 @@ namespace USV
                     Console.Clear();
                     Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
                     S_number_devices = Console.ReadLine();
-
                 } while (!int.TryParse(S_number_devices, out number_devices));
             }
+
             double[] powerList = new double[number_devices];
 
             do
             {
-
                 Console.WriteLine("-----" + "Akku " + number_loop + "-----");
-                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, )");
+                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, ): ");
                 S_type = Console.ReadLine();
-                Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: " , S_type );
+
+                Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                 S_power = Console.ReadLine();
 
-                do
+                if (!double.TryParse(S_power, out power))
                 {
-                    if (!double.TryParse(S_power, out power))
+                    do
                     {
-                        do
+                        Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
+                        S_power = Console.ReadLine();
+
+                        if (S_power == "")
                         {
-                            Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
-                            S_power = Console.ReadLine();
-                            if (S_power == "")
-                            { //Standard Wert von 12VA
-                                power = 12;
-                                powerList[number_loop - 1] = power;
-                                
+                            power = 12;
+                            powerList[number_loop - 1] = power;
+                        }
+                        else
+                        {
+                            double.TryParse(S_power, out power);
+                            powerList[number_loop - 1] = power;
+                        }
+                    } while (!double.TryParse(S_power, out power));
+                }
 
-                            }
-                            else
-                            {
-                                powerList[number_loop - 1] = power;
-                                
-                            }
-                        } while (!double.TryParse(S_power, out power));
-                        Console.WriteLine("Weiter");
-                        
+                Console.WriteLine("Weiter");
 
-                    if (S_type == "VA")
-                    {
-                        Console.WriteLine("VA");
-                    }else if (S_type == "W")
-                    {
-                       
-
-                    }else if (S_type == "A")
-                    {
-                        Console.WriteLine("A");
-                    }
-         
-                } while (double.TryParse(S_type, out double type));
-
+                if (S_type == "VA")
+                {
+                    Console.WriteLine("VA");
+                }
+                else if (S_type == "W")
+                {
+                    // ...
+                }
+                else if (S_type == "A")
+                {
+                    Console.WriteLine("A");
+                }
 
                 number_loop++;
             } while (number_loop <= number_devices);
 
-
-
-
-            //Leistungsabfrage
-
-
-
             Console.ReadKey();
         }
+
         static void USV_Task1()
         {
             int number_devices = 1;
@@ -231,7 +215,5 @@ namespace USV
             Console.WriteLine("Zeit: " + time);
 
         }
-
-        
     }
 }
