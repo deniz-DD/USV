@@ -14,6 +14,7 @@ namespace USV
 
             int number_devices = 1;
             int number_loop = 1;
+            string S_number_devices;
             string S_power;
             string S_cap;
             double power;
@@ -24,15 +25,19 @@ namespace USV
             double Gesamtleistung = 0;
 
             Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
-            try
-            {
-                number_devices = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException m)
-            {
-                Console.WriteLine("Du hast keine Zahl angegben: " + m.Message);
+            S_number_devices = Console.ReadLine();
 
+            if (!int.TryParse(S_number_devices, out number_devices))
+            {
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
+                    S_number_devices = Console.ReadLine();
+
+                } while (!int.TryParse(S_number_devices, out number_devices));
             }
+            
             double[] powerList = new double[number_devices];
             double[] capList = new double[number_devices];
             do
@@ -134,19 +139,6 @@ namespace USV
             double time =( number_devices * all_volt * all_cap )/ Gesamtleistung;
             Console.WriteLine("______________");
             Console.WriteLine("Zeit: " + time);
-
-
-
-
-
-            //Wirkleistung = all_power * 0.65;
-
-            //Console.WriteLine("______________");
-            //Console.WriteLine("Wirkleistung: " + Wirkleistung);
-
-
-
-
 
             Console.ReadKey();
         }
