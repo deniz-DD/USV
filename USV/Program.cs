@@ -13,6 +13,9 @@ namespace USV
             string S_power;
             string S_cap;
             double power;
+            double all_powerW = 0;
+            double all_powerVA  = 0;
+            double all_powerA = 0;  
             double cap;
             double all_cap = 0;
             double Wirkleistung;
@@ -46,37 +49,42 @@ namespace USV
                 {
                     do
                     {
-                        Console.Write("Bitte geben Sie die Spannung (VA = Volt * Ampere) an: ");
+                        Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                         S_power = Console.ReadLine();
 
                         if (S_power == "")
                         {
-                            power = 12;
-                            powerList[number_loop - 1] = power;
+                            power = 12;  //Standard
+                            if (S_type == "VA"){ all_powerVA += power;}
+                            else if (S_type == "W"){ all_powerW += power;}
+                            else if (S_type == "A"){ all_powerA += power;}
                         }
                         else
                         {
-                            double.TryParse(S_power, out power);
-                            powerList[number_loop - 1] = power;
+                           power = Convert.ToDouble(S_power);
+                           if (S_type == "VA") { all_powerVA += power; }
+                           else if (S_type == "W") { all_powerW += power; }
+                           else if (S_type == "A") { all_powerA += power; }
                         }
                     } while (!double.TryParse(S_power, out power));
                 }
-
-                Console.WriteLine("Weiter");
-
-                if (S_type == "VA")
+                else
                 {
-                    Console.WriteLine("VA");
+                    if (S_power == "")
+                    {
+                        power = 12;  //Standard
+                        if (S_type == "VA") { all_powerVA += power; }
+                        else if (S_type == "W") { all_powerW += power; }
+                        else if (S_type == "A") { all_powerA += power; }
+                    }
+                    else
+                    {
+                        power = Convert.ToDouble(S_power);
+                        if (S_type == "VA") { all_powerVA += power; }
+                        else if (S_type == "W") { all_powerW += power; }
+                        else if (S_type == "A") { all_powerA += power; }
+                    }
                 }
-                else if (S_type == "W")
-                {
-                    // ...
-                }
-                else if (S_type == "A")
-                {
-                    Console.WriteLine("A");
-                }
-
                 number_loop++;
             } while (number_loop <= number_devices);
 
