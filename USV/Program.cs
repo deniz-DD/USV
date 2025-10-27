@@ -88,6 +88,10 @@ namespace USV
                 number_loop++;
             } while (number_loop <= number_devices);
 
+            Console.WriteLine(all_powerW);
+            // Umrechnung von VA in Watt
+
+            //Umrechnun von W in VA 
             Console.ReadKey();
         }
 
