@@ -1,21 +1,100 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace USV
 {
     internal class Program
     {
         static void Main(string[] args)
-
         {
-            USV_Task1();
-            
+            int number_devices = 1;
+            int number_loop = 1;
+            string S_type = "W";
+            string S_number_devices;
+            string S_power;
+            string S_cap;
+            double power;
+            double all_powerW = 0;
+            double all_powerVA  = 0;
+            double all_powerA = 0;  
+            double cap;
+            double all_cap = 0;
+            double Wirkleistung;
+            double Scheinleistung;
 
+            Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
+            S_number_devices = Console.ReadLine();
+
+            if (!int.TryParse(S_number_devices, out number_devices))
+            {
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
+                    S_number_devices = Console.ReadLine();
+                } while (!int.TryParse(S_number_devices, out number_devices));
+            }
+
+            double[] powerList = new double[number_devices];
+
+            do
+            {
+                Console.WriteLine("-----" + "Akku " + number_loop + "-----");
+                Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, ): ");
+                S_type = Console.ReadLine();
+
+                Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
+                S_power = Console.ReadLine();
+
+                if (!double.TryParse(S_power, out power))
+                {
+                    do
+                    {
+                        Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
+                        S_power = Console.ReadLine();
+
+                        if (S_power == "")
+                        {
+                            power = 12;  //Standard
+                            if (S_type == "VA"){ all_powerVA += power;}
+                            else if (S_type == "W"){ all_powerW += power;}
+                            else if (S_type == "A"){ all_powerA += power;}
+                        }
+                        else
+                        {
+                           power = Convert.ToDouble(S_power);
+                           if (S_type == "VA") { all_powerVA += power; }
+                           else if (S_type == "W") { all_powerW += power; }
+                           else if (S_type == "A") { all_powerA += power; }
+                        }
+                    } while (!double.TryParse(S_power, out power));
+                }
+                else
+                {
+                    if (S_power == "")
+                    {
+                        power = 12;  //Standard
+                        if (S_type == "VA") { all_powerVA += power; }
+                        else if (S_type == "W") { all_powerW += power; }
+                        else if (S_type == "A") { all_powerA += power; }
+                    }
+                    else
+                    {
+                        power = Convert.ToDouble(S_power);
+                        if (S_type == "VA") { all_powerVA += power; }
+                        else if (S_type == "W") { all_powerW += power; }
+                        else if (S_type == "A") { all_powerA += power; }
+                    }
+                }
+                number_loop++;
+            } while (number_loop <= number_devices);
+
+            Console.WriteLine(all_powerW);
+            // Umrechnung von VA in Watt
+
+            //Umrechnun von W in VA 
             Console.ReadKey();
         }
+
         static void USV_Task1()
         {
             int number_devices = 1;
@@ -148,7 +227,5 @@ namespace USV
             Console.WriteLine("Zeit: " + time);
 
         }
-
-        
     }
 }
