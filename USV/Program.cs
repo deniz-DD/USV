@@ -18,8 +18,8 @@ namespace USV
             double all_powerA = 0;  
             double cap;
             double all_cap = 0;
-            double Wirkleistung;
-            double Scheinleistung;
+            double Wirkleistung = 0;
+            double Scheinleistung = 0;
 
             Console.Write("Bitte geben sie an wie viele Akkus wollen Sie an der USV anschliessen wollen: ");
             S_number_devices = Console.ReadLine();
@@ -88,10 +88,23 @@ namespace USV
                 number_loop++;
             } while (number_loop <= number_devices);
 
-            Console.WriteLine(all_powerW);
-            // Umrechnung von VA in Watt
+           
+            //Umrechnung von A nach Va
+            all_powerVA += all_powerA * 230; 
+            //Umrechnung von W in VA 
+            Scheinleistung = all_powerVA + all_powerW * 1.55;
+            //Umrechnung von VA in Watt
+            Wirkleistung = all_powerW + all_powerVA * 0.65 * 1.30;
 
-            //Umrechnun von W in VA 
+            Console.WriteLine("__________________");
+            Console.WriteLine("Scheinleistung: {0} VA", Scheinleistung);
+            Console.WriteLine("__________________");
+            Console.WriteLine("Wirkleistung: {0} W", Wirkleistung);
+
+
+
+
+
             Console.ReadKey();
         }
 
