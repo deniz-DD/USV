@@ -6,9 +6,9 @@ namespace USV
     {
         static void Main(string[] args)
         {
-           
 
 
+            Task2();
 
 
 
@@ -183,9 +183,11 @@ namespace USV
             {
                 Console.WriteLine("-----" + "Akku " + number_loop + "-----");
                 Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, ): ");
+                
                 S_type = Console.ReadLine();
 
                 Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
+                
                 S_power = Console.ReadLine();
 
                 if (!double.TryParse(S_power, out power))
@@ -195,7 +197,7 @@ namespace USV
                         Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                         S_power = Console.ReadLine();
 
-                        if (S_power == "")
+                        if (S_power == null)
                         {
                             power = 12;  //Standard
                             if (S_type == "VA") { all_powerVA += power; }
