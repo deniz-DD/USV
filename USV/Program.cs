@@ -192,6 +192,7 @@ namespace USV
                 Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                 
                 S_power = Console.ReadLine();
+                S_type.ToUpper();
 
                 if (!double.TryParse(S_power, out power))
                 {
@@ -200,8 +201,9 @@ namespace USV
                         Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                         S_power = Console.ReadLine();
 
-                        if (S_power == null)
+                        if (S_power == "")
                         {
+                           
                             power = 12;  //Standard
                             if (S_type == "VA") { all_powerVA += power; }
                             else if (S_type == "W") { all_powerW += power; }
@@ -209,6 +211,7 @@ namespace USV
                         }
                         else
                         {
+                            
                             power = Convert.ToDouble(S_power);
                             if (S_type == "VA") { all_powerVA += power; }
                             else if (S_type == "W") { all_powerW += power; }
@@ -220,6 +223,7 @@ namespace USV
                 {
                     if (S_power == "")
                     {
+                        
                         power = 12;  //Standard
                         if (S_type == "VA") { all_powerVA += power; }
                         else if (S_type == "W") { all_powerW += power; }
