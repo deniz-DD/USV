@@ -185,6 +185,8 @@ namespace USV
                 Console.Write("Bitte geben Sie an welche Leistungsaufnahmne an ihrem Geraete steht (W (Standard), VA, A, ): ");
                 
                 S_type = Console.ReadLine();
+                if(S_type  == "VA" || S_type == "va"  || S_type == "vA" || S_type == "Va"
+                    S_type == "" || S_type == "va" || S_type == "vA" || S_type == "Va")
 
                 Console.Write("Bitte geben Sie die Leistungsaufnahmen {0} an: ", S_type);
                 
